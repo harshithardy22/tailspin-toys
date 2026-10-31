@@ -24,6 +24,19 @@ test.describe('Game Listing and Navigation', () => {
     });
   });
 
+  test('should display each game rating out of five or the no-rating label', async ({ page }) => {
+    await page.goto('/');
+
+    const gameCards = page.getByTestId('game-card');
+    await expect(gameCards.first()).toBeVisible();
+
+    for (let index = 0; index < await gameCards.count(); index++) {
+      const rating = gameCards.nth(index).getByTestId('game-rating');
+      await expect(rating).toBeVisible();
+      await expect(rating).toContainText(/No rating yet|\d\.\d\/5/);
+    }
+  });
+
   test('should navigate to correct game details page when clicking on a game', async ({ page }) => {
     let gameId: string | null;
     let gameTitle: string | null;
