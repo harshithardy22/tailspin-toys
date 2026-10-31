@@ -14,6 +14,13 @@ export function clampRating(rating: number): number {
 }
 
 /**
+ * Formats a numeric rating on the five-point scale or the empty-state label.
+ */
+export function formatRatingOutOfFive(rating: number | null): string {
+    return rating === null ? 'No rating yet' : `${clampRating(rating).toFixed(1)}/5`;
+}
+
+/**
  * Builds a star glyph string for a rating between 0 and 5.
  *
  * Renders full (★), an optional half (½) and empty (☆) stars. Returns
